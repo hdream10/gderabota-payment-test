@@ -17,6 +17,6 @@ export const paymentValidationSchema = Yup.object().shape({
     .required(defaultError),
 
   cardholder: Yup.string()
-    .matches(/^[a-zA-Z]+ [a-zA-Z]+$/, defaultError)
+    .matches(/^[a-zA-Z-]+ [a-zA-Z-]+$/, defaultError)
     .required(defaultError),
 });

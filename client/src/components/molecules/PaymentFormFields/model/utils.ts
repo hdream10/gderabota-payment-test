@@ -25,24 +25,21 @@ export function formattedCVC(value: string): string {
   return extractNumbers(value).slice(0, 3);
 }
 
+export function extractNumbers(value: string): string {
+  return value.replace(/[^\d]/g, "");
+}
+
 export function formattedExpire(value: string): string {
   const digitValue = extractNumbers(value);
 
   let month = digitValue.substring(0, 2);
   let year = digitValue.substring(2, 4);
 
-  const formatPart = (part: string, min: number, max: number): string => {
-    let num = parseInt(part);
-    num = Math.min(Math.max(num, min), max);
-    return num < 10 ? `0${num}` : `${num}`;
-  };
-
   if (month.length < 2) return month;
 
   const formattedMonth = formatPart(month, 1, 12);
 
   if (month.length === 2 && !year) return formattedMonth;
-
   if (year && year.length < 2) return `${formattedMonth}/` + year;
 
   const formattedYear = formatPart(year, 21, 26);
@@ -50,6 +47,8 @@ export function formattedExpire(value: string): string {
   return `${formattedMonth}/${formattedYear}`;
 }
 
-export function extractNumbers(value: string): string {
-  return value.replace(/[^\d]/g, "");
+function formatPart(part: string, min: number, max: number): string {
+  let num = parseInt(part);
+  num = Math.min(Math.max(num, min), max);
+  return num < 10 ? `0${num}` : `${num}`;
 }

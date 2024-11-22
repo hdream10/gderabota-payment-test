@@ -3,16 +3,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { paymentValidationSchema } from "../model/validationSchema";
 import { initialPaymentData } from "../model/const";
-import { IPayment } from "../model/types";
 import useMaskPan from "@/hooks/useMaskPan";
 import {
   formattedCVC,
   formattedCardholder,
   formattedExpire,
 } from "../model/utils";
+import { FC } from "react";
+import { useQueryPayment } from "../model/useQueryPayment";
 
-const PaymentFormFields = () => {
+interface PropsTypes {
+  isProcessing?: boolean;
+}
+
+const PaymentFormFields: FC<PropsTypes> = ({ isProcessing }) => {
   const panRef = useMaskPan();
+  const { submitPayment, isDisabled } = useQueryPayment(isProcessing);
 
   const {
     control,
@@ -23,12 +29,11 @@ const PaymentFormFields = () => {
     defaultValues: initialPaymentData,
   });
 
-  const onSubmit = (data: IPayment) => {
-    console.log(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <form
+      onSubmit={handleSubmit(submitPayment)}
+      className="flex flex-col gap-5"
+    >
       <Controller
         control={control}
         name="pan"
@@ -41,6 +46,7 @@ const PaymentFormFields = () => {
             error={errors.pan?.message}
             onChange={(e) => field.onChange(e.target.value)}
             onBlur={field.onBlur}
+            disabled={isDisabled}
           />
         )}
       />
@@ -60,6 +66,7 @@ const PaymentFormFields = () => {
                 field.onChange(value);
               }}
               onBlur={field.onBlur}
+              disabled={isDisabled}
             />
           )}
         />
@@ -79,6 +86,7 @@ const PaymentFormFields = () => {
                 field.onChange(value);
               }}
               onBlur={field.onBlur}
+              disabled={isDisabled}
             />
           )}
         />
@@ -97,10 +105,16 @@ const PaymentFormFields = () => {
               field.onChange(cleanedValue);
             }}
             onBlur={field.onBlur}
+            disabled={isDisabled}
           />
         )}
       />
-      <Button className="ml-auto w-fit" type="submit" disabled={!isValid}>
+      <Button
+        className="ml-auto w-fit min-w-[123px]"
+        type="submit"
+        disabled={!isValid}
+        isLoading={isDisabled}
+      >
         Оплатить
       </Button>
     </form>

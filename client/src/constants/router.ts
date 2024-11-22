@@ -1,5 +1,7 @@
+import { StatusPayment } from "@/enums/StatusPayment";
+
 export const RouterPath = {
   check: "check",
-  success: "success",
-  error: "error",
+  success: StatusPayment.ok,
+  error: StatusPayment.fail,
 };

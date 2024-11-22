@@ -1,4 +1,4 @@
-import { IPayment } from "./types";
+import { IPayment } from "@/types/IPayment";
 
 export const initialPaymentData: IPayment = {
   pan: "",

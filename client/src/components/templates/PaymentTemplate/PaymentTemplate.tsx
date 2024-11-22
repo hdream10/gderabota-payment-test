@@ -1,9 +1,9 @@
-import { PaymentWidget } from "@/components/organisms";
+import { Outlet } from "react-router-dom";
 
 const PaymentTemplate = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
-      <PaymentWidget />
+      <Outlet />
     </div>
   );
 };

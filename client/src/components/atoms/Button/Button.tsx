@@ -1,11 +1,12 @@
 import { ButtonHTMLAttributes, FC } from "react";
+import Loader from "../Loader/Loader";
 
 interface ButtonPropsTypes extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
 const Button: FC<ButtonPropsTypes> = ({
-  isLoading,
+  isLoading = false,
   className,
   children,
   disabled,
@@ -15,15 +16,15 @@ const Button: FC<ButtonPropsTypes> = ({
 
   return (
     <button
-      className={`rounded-[10px] py-[14px] px-6 text-button transition-all ${
+      className={`relative rounded-[10px] py-[14px] px-6 text-button transition-all ${
         isDisabledButton
           ? "text-grey-400 bg-grey-100"
           : "text-white bg-primary hover:bg-primary-hover"
-      } ${className}`}
+      } ${isLoading ? "min-h-[48px]" : ""} ${className}`}
       disabled={isDisabledButton}
       {...other}
     >
-      {children}
+      {isLoading ? <Loader className="center-absolute" /> : <> {children}</>}
     </button>
   );
 };

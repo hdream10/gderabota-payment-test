@@ -19,7 +19,7 @@ const InputGroup = forwardRef<HTMLInputElement, InputGroupProps>(
           className={`w-full px-[13px] py-[9px] text-body-1 text-grey-1000 placeholder:text-grey-600 border rounded-[10px] ${
             error
               ? "border-error"
-              : "border-grey-200 hover:border-grey-800 focus:border-primary"
+              : "border-grey-200 hover:border-grey-800 focus:border-primary disabled:border-grey-200"
           }`}
         />
         {error && (

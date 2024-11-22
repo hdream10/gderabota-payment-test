@@ -1,8 +1,18 @@
+import { PaymentWrapper } from "@/components/atoms";
+import { StatusBlock } from "@/components/molecules";
+import { StatusPayment } from "@/enums/StatusPayment";
+import { FC } from "react";
 
-const StatusWidget = () => {
-  return (
-    <div>StatusWidget</div>
-  )
+interface PropsTypes {
+  status: StatusPayment;
 }
 
-export default StatusWidget
+const StatusWidget: FC<PropsTypes> = ({ status }) => {
+  return (
+    <PaymentWrapper className="p-5 flex items-center justify-center">
+      <StatusBlock status={status} />
+    </PaymentWrapper>
+  );
+};
+
+export default StatusWidget;

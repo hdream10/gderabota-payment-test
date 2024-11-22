@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  client:
+    image: node:21 
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - server
+
+  server:
+    image: node:21
+    working_dir: /app
+    volumes:
+      - ./server:/app
+    ports:
+      - "2050:2050"
+    command: sh -c "npm install && npm install nodemon --save-dev && npm run dev"

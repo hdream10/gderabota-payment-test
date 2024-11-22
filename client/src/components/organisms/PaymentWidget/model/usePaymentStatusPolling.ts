@@ -35,6 +35,7 @@ export const usePaymentStatusPolling = (pid?: string) => {
             navigateInErrorPage();
         }
       } catch (error) {
+        console.error(error);
         clearInterval(intervalId);
         navigate("/" + errorPath);
       }

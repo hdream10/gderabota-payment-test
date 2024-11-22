@@ -25,6 +25,10 @@ export async function paymentLoader({
 
   try {
     if (currentPath === baseUrl) return null;
+
+    const fullSuccessPath = baseUrl + successPath;
+    const fullErrorPath = baseUrl + errorPath;
+
     const res = await checkPaymentStatus(pid);
     let statusPayment = res.status;
 
@@ -32,14 +36,10 @@ export async function paymentLoader({
 
     switch (statusPayment) {
       case StatusPayment.ok:
-        const fullSuccessPath = baseUrl + successPath;
-
         if (currentPath === fullSuccessPath) return null;
         return redirect(fullSuccessPath);
-
+        
       case StatusPayment.fail:
-        const fullErrorPath = baseUrl + errorPath;
-
         if (currentPath === fullErrorPath) return null;
         return redirect(fullErrorPath);
 

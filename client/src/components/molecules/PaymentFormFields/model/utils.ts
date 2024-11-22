@@ -32,8 +32,8 @@ export function extractNumbers(value: string): string {
 export function formattedExpire(value: string): string {
   const digitValue = extractNumbers(value);
 
-  let month = digitValue.substring(0, 2);
-  let year = digitValue.substring(2, 4);
+  const month = digitValue.substring(0, 2);
+  const year = digitValue.substring(2, 4);
 
   if (month.length < 2) return month;
 
